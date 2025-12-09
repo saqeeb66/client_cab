@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arcot Cabs – Premium Cab Service Across Karnataka</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Optional Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --yellow: #facc15;
+      --yellow-deep: #eab308;
+      --dark: #020617;
+      --dark-soft: #0f172a;
+      --bg: #020617;
+      --glass: rgba(15, 23, 42, 0.7);
+      --accent: #38bdf8;
+      --white: #f9fafb;
+      --muted: #94a3b8;
+      --radius-xl: 22px;
+      --shadow-xl: 0 24px 60px rgba(15, 23, 42, 0.65);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #f97316 0, transparent 50%),
+        radial-gradient(circle at 80% 20%, #38bdf8 0, transparent 50%),
+        radial-gradient(circle at 10% 90%, #22c55e 0, transparent 55%),
+        #020617;
+      color: var(--white);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ================ LOADER ================ */
+
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at top, #facc15 0, #0b1120 45%, #020617 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      z-index: 9999;
+      color: var(--white);
+    }
+
+    .pre-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .pre-logo-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid rgba(250, 250, 250, 0.4);
+      box-shadow:
+        0 0 25px rgba(250, 204, 21, 0.9),
+        0 0 60px rgba(250, 204, 21, 0.6);
+    }
+
+    .pre-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #020617;
+    }
+
+    .pre-texts span:first-child {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(226, 232, 240, 0.8);
+    }
+
+    .pre-texts span:last-child {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .road-wrap {
+      position: relative;
+      width: min(460px, 90vw);
+      height: 70px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #020617, #020617);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .road-lane {
+      position: absolute;
+      inset: 50% auto auto 0;
+      height: 5px;
+      width: 200%;
+      transform: translateY(-50%);
+      background-image: repeating-linear-gradient(
+        to right,
+        #e5e7eb 0 42px,
+        transparent 42px 72px
+      );
+      opacity: 0.9;
+      animation: laneMove 0.9s linear infinite;
+    }
+
+    .pre-cab {
+      position: absolute;
+      top: 5px;
+      left: -30%;
+      width: 110px;
+      height: 52px;
+      border-radius: 26px;
+      background: linear-gradient(120deg, #facc15, #f97316);
+      box-shadow:
+        0 15px 25px rgba(0, 0, 0, 0.65),
+        0 0 20px rgba(250, 204, 21, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111827;
+      font-size: 26px;
+      animation: cabDrive 1.8s ease-in-out infinite;
+    }
+
+    .pre-cab::after {
+      content: "";
+      position: absolute;
+      inset: auto 10px -9px 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(
+        ellipse at top,
+        rgba(0, 0, 0, 0.6),
+        transparent 70%
+      );
+      filter: blur(4px);
+    }
+
+    @keyframes laneMove {
+      from {
+        transform: translate(-24%, -50%);
+      }
+      to {
+        transform: translate(-64%, -50%);
+      }
+    }
+
+    @keyframes cabDrive {
+      0% {
+        left: -30%;
+      }
+      50% {
+        left: 52%;
+      }
+      100% {
+        left: 125%;
+      }
+    }
+
+    .pre-caption {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .pre-dot {
+      width: 60px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.35);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pre-dot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 40%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #facc15, #f97316);
+      animation: loaderBar 1.1s ease-in-out infinite;
+    }
+
+    @keyframes loaderBar {
+      0% {
+        transform: translateX(-100%);
+      }
+      50% {
+        transform: translateX(60%);
+      }
+      100% {
+        transform: translateX(200%);
+      }
+    }
+
+    /* ================ GLOBAL LAYOUT ================ */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        90deg,
+        rgba(15, 23, 42, 0.92),
+        rgba(15, 23, 42, 0.75)
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .nav {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-left img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #020617;
+      box-shadow: 0 0 16px rgba(250, 204, 21, 0.8);
+    }
+
+    .nav-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-title span:first-child {
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-title span:last-child {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: #cbd5f5;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #facc15, #f97316);
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.04em;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease,
+        background 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-deep));
+      color: #111827;
+      box-shadow: 0 12px 30px rgba(250, 204, 21, 0.5);
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at 0 0,
+        rgba(255, 255, 255, 0.55),
+        transparent 55%
+      );
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-primary:hover::after {
+      opacity: 1;
+      transform: translate(10%, 10%);
+    }
+
+    .btn-outline {
+      background: rgba(15, 23, 42, 0.7);
+      color: var(--white);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.75);
+    }
+
+    main {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 26px 18px 60px;
+      position: relative;
+    }
+
+    section {
+      margin-block: 40px;
+      position: relative;
+    }
+
+    /* Floating shapes */
+    .shape {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(30px);
+      opacity: 0.18;
+      z-index: -1;
+    }
+    .shape.yellow {
+      background: #facc15;
+      width: 220px;
+      height: 220px;
+      top: 10%;
+      right: -60px;
+      animation: float 8s ease-in-out infinite;
+    }
+    .shape.blue {
+      background: #22d3ee;
+      width: 260px;
+      height: 260px;
+      top: 60%;
+      left: -80px;
+      animation: float 12s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-18px);
+      }
+    }
+
+    /* Utilities */
+    .grid {
+      display: grid;
+      gap: 24px;
+    }
+    .two-col {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      main {
+        padding-inline: 14px;
+      }
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px) scale(0.98);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* ================ HERO ================ */
+
+    .hero-main {
+      display: grid;
+      gap: 26px;
+    }
+
+    .hero-card {
+      background: radial-gradient(
+          circle at top left,
+          rgba(244, 244, 245, 0.18),
+          transparent 45%
+        ),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.95));
+      border-radius: 28px;
+      padding: 26px 24px 22px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.16);
+      font-size: 11px;
+      color: #bbf7d0;
+      margin-bottom: 12px;
+    }
+
+    .hero-heading {
+      font-size: clamp(26px, 3.4vw, 34px);
+      line-height: 1.16;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 510px;
+      margin-bottom: 20px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 11px;
+      color: #cbd5f5;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-meta strong {
+      color: #e5e7eb;
+    }
+
+    .hero-right {
+      position: relative;
+      min-height: 230px;
+    }
+
+    .hero-panel {
+      position: absolute;
+      inset: 0;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 10% 0, rgba(248, 250, 252, 0.24), transparent),
+        radial-gradient(circle at 100% 100%, rgba(8, 47, 73, 0.7), transparent 60%),
+        rgba(15, 23, 42, 0.96);
+      padding: 18px 16px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      overflow: hidden;
+    }
+
+    .hero-panel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-city-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-city-tag {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.16);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #e0f2fe;
+    }
+
+    .hero-runway {
+      margin-top: 16px;
+      position: relative;
+      height: 115px;
+      border-radius: 26px;
+      background: radial-gradient(circle at top, #020617 20%, #000 60%);
+      overflow: hidden;
+    }
+
+    .runway-lines {
+      position: absolute;
+      inset: 50% auto auto 0;
+      height: 4px;
+      width: 260%;
+      transform: translateY(-50%);
+      background-image: repeating-linear-gradient(
+        to right,
+        rgba(248, 250, 252, 0.85) 0 36px,
+        transparent 36px 60px
+      );
+      opacity: 0.9;
+      animation: laneMove 1.1s linear infinite;
+    }
+
+    .hero-bus {
+      position: absolute;
+      bottom: 10px;
+      left: 8%;
+      width: 100px;
+      height: 46px;
+      border-radius: 16px;
+      background: linear-gradient(120deg, #facc15, #f97316);
+      box-shadow:
+        0 14px 26px rgba(0, 0, 0, 0.7),
+        0 0 20px rgba(250, 204, 21, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111827;
+      font-size: 28px;
+      animation: busBounce 1.8s ease-in-out infinite;
+    }
+
+    .hero-bus::before,
+    .hero-bus::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #1e293b, #020617 70%);
+      border: 2px solid #111827;
+    }
+    .hero-bus::before {
+      left: 18px;
+    }
+    .hero-bus::after {
+      right: 18px;
+    }
+
+    @keyframes busBounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .hero-panel-footer {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+    .hero-panel-footer strong {
+      color: var(--yellow);
+    }
+
+    /* ================ CARDS / SERVICES ================ */
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      background: radial-gradient(
+          circle at top left,
+          rgba(248, 250, 252, 0.04),
+          transparent 50%
+        ),
+        rgba(15, 23, 42, 0.86);
+      border-radius: var(--radius-xl);
+      padding: 16px 14px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.8);
+      overflow: hidden;
+      transform-origin: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(
+        circle at 0 0,
+        rgba(250, 204, 21, 0.12),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-3px) scale(1.01);
+      border-color: rgba(250, 204, 21, 0.8);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.95);
+    }
+
+    .card-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.7);
+      color: #e5e7eb;
+      font-size: 10px;
+      margin-bottom: 8px;
+    }
+
+    /* ================ RATE TABLES ================ */
+
+    .table-wrap {
+      margin-top: 12px;
+      overflow-x: auto;
+      border-radius: 18px;
+      box-shadow: 0 22px 55px rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    thead {
+      background: linear-gradient(90deg, #facc15, #f97316);
+      color: #111827;
+    }
+
+    th,
+    td {
+      padding: 8px 10px;
+      font-size: 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+      white-space: nowrap;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* ================ TEXT BLOCKS ================ */
+
+    .text-block {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 20px;
+      padding: 16px 16px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+
+    .text-block h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .text-block ul {
+      margin-left: 18px;
+      margin-top: 5px;
+    }
+
+    .text-block li {
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
+
+    /* ================ CONTACT ================ */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .contact-card {
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 20px;
+      padding: 16px 16px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.95);
+      font-size: 13px;
+    }
+
+    .contact-item {
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+    .contact-item span {
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    form {
+      display: grid;
+      gap: 9px;
+    }
+
+    label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 8px 11px;
+      font-size: 13px;
+      outline: none;
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--white);
+    }
+
+    textarea {
+      border-radius: 18px;
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
+    }
+
+    /* ================ FOOTER ================ */
+
+    footer {
+      padding: 16px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid rgba(30, 64, 175, 0.5);
+      background: radial-gradient(
+          circle at top,
+          rgba(15, 23, 42, 0.95),
+          transparent 50%
+        ),
+        #020617;
+    }
+  </style>
+</head>
+<body>
+  <!-- FLOATING SHAPES -->
+  <div class="shape yellow"></div>
+  <div class="shape blue"></div>
+
+  <!-- LOADER -->
+  <div id="preloader">
+    <div class="pre-logo-row">
+      <div class="pre-logo-img">
+        <!-- Replace with your exported logo image -->
+        <img src="assets/arcot-logo.png" alt="Arcot Cabs Logo" />
+      </div>
+      <div class="pre-texts">
+        <span>PREMIUM CAB SERVICE</span><br />
+        <span>ARCOT&nbsp;CABS</span>
+      </div>
+    </div>
+
+    <div class="road-wrap">
+      <div class="road-lane"></div>
+      <div class="pre-cab">🚖</div>
+    </div>
+
+    <div class="pre-caption">Warming up engines across Karnataka…</div>
+    <div class="pre-dot"></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav class="nav">
+      <div class="nav-left">
+        <img src="assets/arcot-logo.png" alt="Arcot Cabs Logo" />
+        <div class="nav-title">
+          <span>PREMIUM CAB SERVICE</span>
+          <span>ARCOT CABS</span>
+        </div>
+      </div>
+
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#rates">Rates</a>
+        <a href="#terms">Terms</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="nav-cta">
+        <button class="btn btn-outline" onclick="callNow()">
+          📞 Call Now
+        </button>
+        <button class="btn btn-primary" onclick="whatsappNow()">
+          💬 WhatsApp
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="reveal">
+      <div class="grid two-col hero-main">
+        <div class="hero-card">
+          <div class="hero-badge">
+            ✅ 24/7 Cabs · Karnataka Metro &amp; Non-Metro
+          </div>
+          <h1 class="hero-heading">
+            Elegant, Safe &amp; Reliable Cabs<br />
+            from Bangalore to Every Corner of Karnataka.
+          </h1>
+          <p class="hero-sub">
+            <strong>Arcot Cabs</strong>, led by
+            <strong>Mrs. Vanaja Rani</strong>, offers Local Runs, Airport
+            Transfers, Outstation trips and ETS services with a premium fleet of
+            Sedans, MUVs and SUVs – all with professional chauffeurs.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="callNow()">
+              📞 Book by Call 
+            </button>
+            <button class="btn btn-outline" onclick="whatsappNow()">
+              💬 Book on WhatsApp
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <span>⏰ <strong>24/7</strong> Operations</span>
+            <span>📍 All Karnataka – Metro &amp; Non-Metro</span>
+            <span>🚘 Dzire · Ciaz · Ertiga / Rumion · Crysta · Hycross</span>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-panel">
+            <div class="hero-panel-top">
+              <div>
+                <div class="hero-city-title">Bangalore · Premium Cabs</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:4px;">
+                  Local · Airport · Outstation · ETS
+                </div>
+              </div>
+              <div class="hero-city-tag">Live Route View</div>
+            </div>
+
+            <div class="hero-runway">
+              <div class="runway-lines"></div>
+              <div class="hero-bus">🚖</div>
+            </div>
+
+            <div class="hero-panel-footer">
+              <span>Dzire 8hrs / 80 Km from <strong>₹ 2000</strong></span>
+              <span>Innova Crysta from <strong>₹ 3300</strong></span>
+            </div>
+            <span>GST REG no-<strong>29ACFFA3853L1Z1</strong></span>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="reveal">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-sub">
+        Designed for business travellers, families and corporate ETS movements –
+        with one consistent promise: safe &amp; elegant travel.
+      </p>
+
+      <div class="card-grid">
+        <article class="card">
+          <div class="card-label">Local Run</div>
+          <div class="chip">4 hrs / 40 Km · 8 hrs / 80 Km</div>
+          <div class="card-title">Bangalore City Local Rides</div>
+          <p>
+            Flexible hourly packages for meetings, shopping or city errands in
+            Dzire, Ciaz, Ertiga, Rumion and more – with garage-to-garage
+            billing.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-label">Airport Transfer</div>
+          <div class="chip">0–40 · 40–60 · 60–80 · 80–100 Km slabs</div>
+          <div class="card-title">Kempegowda Airport Pickup &amp; Drop</div>
+          <p>
+            Fixed transparent Airport transfer packages so you always know your
+            fare in advance, with courteous chauffeurs tracking your flight
+            timings.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-label">Outstation</div>
+          <div class="chip">Min. 300 Km / day · Per Km billing</div>
+          <div class="card-title">Outstation Trips All Over Karnataka</div>
+          <p>
+            From weekend getaways to corporate visits, enjoy smooth outstation
+            rides with reliable vehicles and clear per-Km tariffs.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-label">ETS</div>
+          <div class="chip">Corporate / Employee Transport</div>
+          <div class="card-title">Employee Transport Solutions</div>
+          <p>
+            Well-managed cab movements for corporate and IT parks with
+            scheduled pick-up and drop plans customised for your workforce.
+          </p>
+        </article>
+      </div>
+
+      <h3 style="margin-top:22px;font-size:16px;">Our Fleet</h3>
+      <p class="section-sub">
+        A curated fleet of comfortable and premium vehicles to match your travel
+        style.
+      </p>
+
+      <div class="card-grid">
+        <article class="card">
+          <div class="card-label">Sedan</div>
+          <div class="card-title">Dzire</div>
+          <p>
+            Ideal for 3–4 passengers, perfect for city runs, Airport transfers
+            and short outstation journeys.
+          </p>
+        </article>
+        <article class="card">
+          <div class="card-label">Premium Sedan</div>
+          <div class="card-title">Ciaz / Hyryder</div>
+          <p>
+            Extra legroom and a refined cabin for executives and premium
+            travellers.
+          </p>
+        </article>
+        <article class="card">
+          <div class="card-label">MUV</div>
+          <div class="card-title">Ertiga / Rumion</div>
+          <p>
+            Perfect for families and small groups with luggage, balancing
+            comfort and value.
+          </p>
+        </article>
+        <article class="card">
+          <div class="card-label">SUV / Premium SUV</div>
+          <div class="card-title">Innova Crysta / Hycross</div>
+          <p>
+            The preferred choice for long outstation drives and VIP movement
+            with top-tier comfort.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- RATE CARDS -->
+    <section id="rates" class="reveal">
+      <h2 class="section-title">Bangalore – Premium Cabs Rate Card</h2>
+      <p class="section-sub">
+        Core tariffs for Local, Per Km and Outstation usage. All prices in INR.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Type of Vehicle</th>
+              <th>8hrs / 80 Km</th>
+              <th>4hrs / 40 Km</th>
+              <th>Per Km</th>
+              <th>Per Hour</th>
+              <th>Outstation Min. Km / Day</th>
+              <th>Chauffeur Retention (Day / Night)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dzire</td>
+              <td>₹ 2000</td>
+              <td>₹ 1100</td>
+              <td>₹ 15</td>
+              <td>₹ 150</td>
+              <td>300 Km</td>
+              <td>₹ 300</td>
+            </tr>
+            <tr>
+              <td>Ciaz / Rumion / Ertiga</td>
+              <td>₹ 2600</td>
+              <td>₹ 1500</td>
+              <td>₹ 18</td>
+              <td>₹ 180</td>
+              <td>300 Km</td>
+              <td>₹ 300</td>
+            </tr>
+            <tr>
+              <td>Innova Crysta</td>
+              <td>₹ 3300</td>
+              <td>N/A</td>
+              <td>₹ 26</td>
+              <td>₹ 260</td>
+              <td>300 Km</td>
+              <td>₹ 400</td>
+            </tr>
+            <tr>
+              <td>Innova Hycross</td>
+              <td>₹ 4200</td>
+              <td>N/A</td>
+              <td>₹ 35</td>
+              <td>₹ 350</td>
+              <td>300 Km</td>
+              <td>₹ 500</td>
+            </tr>
+            <tr>
+              <td>Toyota Fortuner</td>
+              <td>₹ 6000</td>
+              <td>N/A</td>
+              <td>₹ 55</td>
+              <td>₹ 550</td>
+              <td>300 Km</td>
+              <td>₹ 500</td>
+            </tr>
+            <tr>
+              <td>Camry Hybrid</td>
+              <td>₹ 7000</td>
+              <td>N/A</td>
+              <td>₹ 70</td>
+              <td>₹ 700</td>
+              <td>300 Km</td>
+              <td>₹ 750</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Note: Kms and Hours are charged <strong>garage to garage</strong> for
+        both Local / Disposal and Outstation duties.
+      </p>
+
+      <h2 class="section-title" style="margin-top:26px;">
+        Bangalore – Metro City Airport Transfer Rate Card
+      </h2>
+      <p class="section-sub">
+        Distance-based fixed packages for Kempegowda International Airport trips.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Type of Vehicle</th>
+              <th>0–40 Km</th>
+              <th>40–60 Km</th>
+              <th>60–80 Km</th>
+              <th>80–100 Km</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dzire</td>
+              <td>₹ 1500</td>
+              <td>₹ 2100</td>
+              <td>₹ 2900</td>
+              <td>₹ 3100</td>
+            </tr>
+            <tr>
+              <td>Ciaz / Ertiga</td>
+              <td>₹ 1800</td>
+              <td>₹ 2400</td>
+              <td>₹ 3200</td>
+              <td>₹ 3500</td>
+            </tr>
+            <tr>
+              <td>Innova Crysta</td>
+              <td>₹ 2600</td>
+              <td>₹ 3700</td>
+              <td>₹ 4200</td>
+              <td>₹ 5400</td>
+            </tr>
+            <tr>
+              <td>Innova Hycross</td>
+              <td>₹ 3200</td>
+              <td>₹ 4200</td>
+              <td>₹ 5600</td>
+              <td>₹ 7100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Airport parking and toll charges are applicable as per actuals on all
+        transfers.
+      </p>
+    </section>
+
+    <!-- TERMS -->
+    <section id="terms" class="reveal">
+      <h2 class="section-title">Terms &amp; Conditions</h2>
+      <p class="section-sub">
+        A simple, transparent structure to keep your trips predictable and
+        stress-free.
+      </p>
+
+      <div class="text-block">
+        <h3>Usage &amp; Billing</h3>
+        <ul>
+          <li>
+            Kms and Hrs are calculated <strong>garage to garage</strong> for all
+            Local, Disposal and Outstation trips.
+          </li>
+          <li>
+            Minimum billing for Outstation trips is based on
+            <strong>300 Km per day</strong> per calendar day.
+          </li>
+          <li>
+            Chauffeur retention charges apply for Day / Night halts as per the
+            published rate card.
+          </li>
+          <li>
+            Toll, parking, interstate permit fees and any other statutory
+            charges are to be borne by the customer.
+          </li>
+        </ul>
+
+        <h3 style="margin-top:8px;">Bookings, Changes &amp; Cancellations</h3>
+        <ul>
+          <li>
+            All bookings are subject to vehicle availability at the time of
+            confirmation.
+          </li>
+          <li>
+            Last-minute changes to itinerary, pickup time or vehicle type may
+            impact pricing.
+          </li>
+          <li>
+            Cancellations close to the pickup time may attract cancellation
+            charges depending on dispatch status.
+          </li>
+        </ul>
+
+        <h3 style="margin-top:8px;">Passenger Responsibilities</h3>
+        <ul>
+          <li>
+            Wearing seat belts is recommended for all occupants for safety.
+          </li>
+          <li>
+            Any damage to vehicle interiors or accessories caused during the
+            trip will be billed to the customer.
+          </li>
+          <li>
+            Transport of illegal items, hazardous materials or banned
+            substances is strictly prohibited.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section id="privacy" class="reveal">
+      <h2 class="section-title">Privacy Policy</h2>
+      <p class="section-sub">
+        How Arcot Cabs uses and protects your information when you travel with
+        us.
+      </p>
+
+      <div class="text-block">
+        <p>
+          Arcot Cabs respects your privacy. We collect only the information
+          necessary to process your bookings and deliver a safe travel
+          experience.
+        </p>
+
+        <h3 style="margin-top:8px;">Information We Collect</h3>
+        <ul>
+          <li>
+            Your name, contact number, email address and pickup / drop locations
+            when you make an enquiry or booking.
+          </li>
+          <li>
+            Trip-related information such as date, time, distance and vehicle
+            type to manage billing and service quality.
+          </li>
+        </ul>
+
+        <h3 style="margin-top:8px;">How We Use Your Information</h3>
+        <ul>
+          <li>To confirm bookings and coordinate with you and the chauffeur.</li>
+          <li>To generate invoices and maintain basic trip history.</li>
+          <li>
+            To respond to your queries and improve our services over time.
+          </li>
+        </ul>
+
+        <h3 style="margin-top:8px;">Data Sharing &amp; Protection</h3>
+        <ul>
+          <li>
+            Details are shared only with your assigned chauffeur for the purpose
+            of serving your trip.
+          </li>
+          <li>
+            We do not sell or rent your information to third-party marketing
+            agencies.
+          </li>
+          <li>
+            Reasonable precautions are taken to safeguard your data, but no
+            online or offline system can be guaranteed as 100% secure.
+          </li>
+        </ul>
+
+        <p style="margin-top:8px;">
+          For any questions about this policy, you can reach us at
+          <strong>arcotcabx@gmail.com</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="reveal">
+      <h2 class="section-title">Contact &amp; Bookings</h2>
+      <p class="section-sub">
+        Reach out for instant bookings, corporate ETS enquiries or customised
+        outstation plans.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3 style="margin-bottom:8px;">Arcot Cabs – Company Details</h3>
+          <div class="contact-item">
+            <span>Company Name:</span> Arcot Cabs
+          </div>
+          <div class="contact-item">
+            <span>Owner:</span> Mrs. Vanaja Rani
+          </div>
+          <div class="contact-item">
+            <span>Phone:</span> 9916242913 / 9945822544
+          </div>
+          <div class="contact-item">
+            <span>WhatsApp:</span> 9916242913 / 9945822544
+          </div>
+          <div class="contact-item">
+            <span>Email:</span> arcotcabx@gmail.com
+          </div>
+          <div class="contact-item">
+            <span>Operating Hours:</span> 24/7
+          </div>
+          <div class="contact-item">
+            <span>Service Locations:</span> All metro and non-metro cities
+            across Karnataka.
+          </div>
+          <div class="contact-item">
+            <span>Office Address:</span> Wheeler RD, opposite to indian Gymkhana Club,cox Town ,Bengaluru,Karnataka 560005
+          </div>
+          <div class="contact-item">
+            <span>Company Bank Details</span> 
+          </div>
+          <div class="contact-item">
+            <span>Bank Name :</span> Axis Bank
+          </div>
+          <div class="contact-item">
+            <span>Entity Name :</span> ARCOT CABS
+          </div>
+          <div class="contact-item">
+            <span>customer Id:</span> 974249831
+          </div>
+          <div class="contact-item">
+            <span>ACCOUNT NUMBER:</span> 925020017455662
+          </div>
+          <div class="contact-item">
+            <span>ACCOUNT Type:</span> CURRENT ACCOUNT
+          </div>
+          
+
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="callNow()">
+              📞 Call to Book
+            </button>
+            <button class="btn btn-outline" onclick="whatsappNow()">
+              💬 WhatsApp Booking
+            </button>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h3 style="margin-bottom:8px;">Quick Enquiry Form</h3>
+          <form
+            onsubmit="event.preventDefault(); alert('Thank you! Arcot Cabs will contact you shortly.');"
+          >
+            <div>
+              <label for="name">Name</label>
+              <input id="name" type="text" placeholder="Your full name" required />
+            </div>
+            <div>
+              <label for="phone">Mobile Number</label>
+              <input
+                id="phone"
+                type="tel"
+                placeholder="Your contact number"
+                required
+              />
+            </div>
+            <div>
+              <label for="trip">Trip Type</label>
+              <input
+                id="trip"
+                type="text"
+                placeholder="Local / Airport / Outstation / ETS"
+              />
+            </div>
+            <div>
+              <label for="message">Trip Details</label>
+              <textarea
+                id="message"
+                placeholder="Pickup, drop, date, time and any special requests"
+              ></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit" style="margin-top:4px;">
+              Submit Enquiry
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Arcot Cabs. All rights reserved. · Designed for
+    premium travel across Karnataka.
+  </footer>
+
+  <script>
+    // ===== Loader fade-out =====
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("preloader");
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        loader.style.transition = "opacity 450ms ease";
+        setTimeout(() => loader.remove(), 460);
+      }, 800); // keep animation visible briefly
+    });
+
+    // ===== Scroll reveal =====
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+    revealEls.forEach((el) => observer.observe(el));
+
+    // ===== Call & WhatsApp actions =====
+    function callNow() {
+  const options = 
+    "Choose a number to call:\n\n" +
+    "1. 9916242913\n" +
+    "2. 9945822544\n" +
+    "3. 7019876543";
+
+  const choice = prompt(options);
+
+  let number = "";
+
+  if (choice == "1") number = "9916242913";
+  else if (choice == "2") number = "9945822544";
+  else if (choice == "3") number = "7019876543";
+  else return;
+
+  window.location.href = `tel:+91${number}`;
+}
+
+
+function whatsappNow() {
+  const options = 
+    "Choose a WhatsApp number:\n\n" +
+    "1. 9663380159\n" +
+    "2. 9945822544\n" +
+    "3. 9916242913\n";
+
+  const choice = prompt(options);
+
+  let number = "";
+
+  if (choice == "1") number = "919663380159";
+  else if (choice == "2") number = "919945822544";
+  else if (choice == "3") number = "919916242913";
+  else return;
+
+  const msg = encodeURIComponent(
+    "Hi Arcot Cabs, I’d like to book a cab (Local / Airport / Outstation / ETS)."
+  );
+
+  window.open(`https://wa.me/${number}?text=${msg}`, "_blank");
+}
+
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
