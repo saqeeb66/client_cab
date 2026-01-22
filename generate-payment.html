@@ -15,7 +15,7 @@
       <h2 class="section-title">Generate Payment Link</h2>
       <p class="section-sub">Enter customer details and share the payment link</p>
 
-      <div class="contact-card" style="max-width:420px;">
+      <div class="contact-card" style="max-width:420px;margin:auto;">
         <form id="linkForm">
           <div>
             <label>Customer Name</label>
@@ -28,39 +28,52 @@
           </div>
 
           <div>
-            <label>EmailId</label>
-            <input id="emailid" required />
+            <label>Email ID</label>
+            <input id="emailid" type="email" required />
           </div>
 
           <div>
             <label>Amount (₹)</label>
-            <input id="amount" required />
+            <input id="amount" type="number" required />
           </div>
 
           <button class="btn btn-primary" type="submit">
-            Generate Link
+            🔗 Generate Link
           </button>
         </form>
 
-        <p id="result" style="margin-top:10px;"></p>
+        <div id="result" style="margin-top:12px;"></div>
       </div>
     </section>
   </main>
 
 <script>
-document.getElementById("linkForm").addEventListener("submit", e => {
+document.getElementById("linkForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const name = nameInput.value;
-  const phone = phoneInput.value;
-    const emailid = emailidInput.value;
-  const amount = amountInput.value;
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const emailid = document.getElementById("emailid").value;
+  const amount = document.getElementById("amount").value;
 
-  const link = `https://arcotcabs.netlify.app/pay.html?name=${encodeURIComponent(name)}&phone=${phone}&emailid=${emailid}&amount=${amount}`;
+  if (!name || !phone || !emailid || !amount) {
+    alert("Please fill all fields");
+    return;
+  }
 
-  result.innerHTML = `
-    <b>Payment Link:</b><br>
-    <input value="${link}" style="width:100%" onclick="this.select()">
+  const link =
+    `https://arcotcabs.netlify.app/pay.html` +
+    `?name=${encodeURIComponent(name)}` +
+    `&phone=${encodeURIComponent(phone)}` +
+    `&emailid=${encodeURIComponent(emailid)}` +
+    `&amount=${encodeURIComponent(amount)}`;
+
+  document.getElementById("result").innerHTML = `
+    <label>Payment Link</label>
+    <input value="${link}" style="width:100%" onclick="this.select()" readonly>
+    <button class="btn btn-outline" style="margin-top:6px;" onclick="navigator.clipboard.writeText('${link}')">
+      📋 Copy Link
+    </button>
   `;
 });
 </script>
