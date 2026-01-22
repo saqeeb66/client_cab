@@ -1,62 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Pay Now – Arcot Cabs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SAME CSS -->
   <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
+  <main>
+    <section class="reveal">
+      <h2 class="section-title">Complete Your Payment</h2>
+      <p class="section-sub">Secure payment powered by Razorpay</p>
 
-<h2>Arcot Cabs – Payment</h2>
-<p id="details"></p>
+      <div class="contact-card" style="max-width:420px;margin:auto;">
+        <div class="contact-item"><b>Name:</b> <span id="custName"></span></div>
+        <div class="contact-item"><b>Phone:</b> <span id="custPhone"></span></div>
+        <div class="contact-item"><b>Email:</b> <span id="custEmail"></span></div>
+        <div class="contact-item"><b>Amount:</b> ₹ <span id="custAmount"></span></div>
 
-<button onclick="payNow()">Proceed to Pay</button>
+        <button class="btn btn-primary" style="margin-top:12px;width:100%;" onclick="payNow()">
+          💳 Pay Now
+        </button>
+      </div>
+    </section>
+  </main>
 
+<!-- Razorpay SDK -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
-const params = new URLSearchParams(window.location.search);
+  const BACKEND_URL = "https://backend-lkym.onrender.com";
 
-const name = params.get("name");
-const emailid = params.get("emailid");
-const phone = params.get("phone");
-const amount = params.get("amount");
+  // Read URL params
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name");
+  const phone = params.get("phone");
+  const email = params.get("emailid");
+  const amount = params.get("amount");
 
-document.getElementById("details").innerHTML = `
-  <b>Name:</b> ${name}<br>
-  <b>Phone:</b> ${phone}<br>
-  <b>emailid:</b> ${emailid}<br>
-  <b>Amount:</b> ₹${amount}
-`;
+  // Show details
+  document.getElementById("custName").textContent = name || "-";
+  document.getElementById("custPhone").textContent = phone || "-";
+  document.getElementById("custEmail").textContent = email || "-";
+  document.getElementById("custAmount").textContent = amount || "0";
 
-async function payNow() {
-  const res = await fetch("https://backend-lkym.onrender.com/create-order", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount })
-  });
-
-  const order = await res.json();
-
-  const options = {
-    key: "rzp_live_S6q2CyTX34QzvG",
-    amount: order.amount,
-    currency: "INR",
-    name: "Arcot Cabs",
-    description: "Cab Booking Payment",
-    order_id: order.id,
-    prefill: {
-      name: name,
-      contact: phone,
-      mail: emailid
-    },
-    handler: function () {
-      alert("Payment Successful");
+  async function payNow() {
+    if (!amount || amount <= 0) {
+      alert("Invalid payment amount");
+      return;
     }
-  };
 
-  new Razorpay(options).open();
-}
+    try {
+      // Create order
+      const res = await fetch(`${BACKEND_URL}/create-order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount })
+      });
+
+      const order = await res.json();
+
+      const options = {
+        key: "rzp_live_S6q2CyTX34QzvG",   // ✅ YOUR LIVE KEY
+        amount: order.amount,
+        currency: "INR",
+        name: "Arcot Cabs",
+        description: "Cab Booking Payment",
+        order_id: order.id,
+        handler: function () {
+          alert("Payment Successful!");
+        },
+        prefill: {
+          name: name,
+          contact: phone,
+          email: email
+        },
+        theme: {
+          color: "#facc15"
+        }
+      };
+
+      new Razorpay(options).open();
+
+    } catch (err) {
+      console.error(err);
+      alert("Payment failed. Please try again.");
+    }
+  }
 </script>
-
 </body>
 </html>
