@@ -1441,6 +1441,7 @@
 
         <div class="contact-card">
           <h3 style="margin-bottom:8px;">Quick Enquiry Form</h3>
+          
           <form
             onsubmit="event.preventDefault(); alert('Thank you! Arcot Cabs will contact you shortly.');"
           >
@@ -1477,6 +1478,31 @@
             </button>
           </form>
         </div>
+        <div class="contact-card">
+  <h3 style="margin-bottom:8px;">Pay Booking Amount</h3>
+
+  <form id="paymentForm">
+    <div>
+      <label>Name</label>
+      <input id="payName" type="text" placeholder="Your name" required />
+    </div>
+
+    <div>
+      <label>Mobile Number</label>
+      <input id="payPhone" type="tel" placeholder="Your mobile number" required />
+    </div>
+
+    <div>
+      <label>Amount (₹)</label>
+      <input id="payAmount" type="number" placeholder="Enter amount" required />
+    </div>
+
+    <button class="btn btn-primary" type="submit" style="margin-top:8px;">
+      💳 Pay Now
+    </button>
+  </form>
+</div>
+
       </div>
     </section>
   </main>
@@ -1485,6 +1511,7 @@
     © <span id="year"></span> Arcot Cabs. All rights reserved. · Designed for
     premium travel across Karnataka.
   </footer>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <script>
     // ===== Loader fade-out =====
@@ -1560,6 +1587,67 @@ function whatsappNow() {
 
 
     document.getElementById("year").textContent = new Date().getFullYear();
+    // ================= RAZORPAY PAYMENT =================
+
+const BACKEND_URL = "https://backend-lkym.onrender.com";
+
+document.getElementById("paymentForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById("payName").value;
+  const phone = document.getElementById("payPhone").value;
+  const amount = document.getElementById("payAmount").value;
+
+  if (!amount || amount <= 0) {
+    alert("Please enter a valid amount");
+    return;
+  }
+
+  try {
+    // 1️⃣ Create order from backend
+    const res = await fetch(`${BACKEND_URL}/create-order`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ amount })
+    });
+
+    const order = await res.json();
+
+    // 2️⃣ Open Razorpay Checkout
+    const options = {
+      key: "rzp_live_S6q2CyTX34QzvG", // 🔴 PUT YOUR RAZORPAY KEY ID HERE
+      amount: order.amount,
+      currency: "INR",
+      name: "Arcot Cabs",
+      description: "Cab Booking Payment",
+      order_id: order.id,
+
+      handler: function (response) {
+        alert("Payment Successful!");
+        console.log("Payment ID:", response.razorpay_payment_id);
+      },
+
+      prefill: {
+        name: name,
+        contact: phone
+      },
+
+      theme: {
+        color: "#facc15"
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+
+  } catch (err) {
+    console.error(err);
+    alert("Payment failed. Please try again.");
+  }
+});
+
   </script>
 </body>
 </html>
