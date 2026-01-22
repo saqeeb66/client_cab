@@ -28,6 +28,11 @@
           </div>
 
           <div>
+            <label>EmailId</label>
+            <input id="emailid" required />
+          </div>
+
+          <div>
             <label>Amount (₹)</label>
             <input id="amount" required />
           </div>
@@ -48,9 +53,10 @@ document.getElementById("linkForm").addEventListener("submit", e => {
 
   const name = nameInput.value;
   const phone = phoneInput.value;
+    const emailid = emailidInput.value;
   const amount = amountInput.value;
 
-  const link = `https://arcotcabs.netlify.app/pay.html?name=${encodeURIComponent(name)}&phone=${phone}&amount=${amount}`;
+  const link = `https://arcotcabs.netlify.app/pay.html?name=${encodeURIComponent(name)}&phone=${phone}&emailid=${emailid}&amount=${amount}`;
 
   result.innerHTML = `
     <b>Payment Link:</b><br>
