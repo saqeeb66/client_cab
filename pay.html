@@ -16,12 +16,14 @@
 const params = new URLSearchParams(window.location.search);
 
 const name = params.get("name");
+const emailid = params.get("emailid");
 const phone = params.get("phone");
 const amount = params.get("amount");
 
 document.getElementById("details").innerHTML = `
   <b>Name:</b> ${name}<br>
   <b>Phone:</b> ${phone}<br>
+  <b>emailid:</b> ${emailid}<br>
   <b>Amount:</b> ₹${amount}
 `;
 
@@ -43,7 +45,8 @@ async function payNow() {
     order_id: order.id,
     prefill: {
       name: name,
-      contact: phone
+      contact: phone,
+      mail: emailid
     },
     handler: function () {
       alert("Payment Successful");
