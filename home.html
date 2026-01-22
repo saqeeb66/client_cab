@@ -1511,20 +1511,24 @@
     © <span id="year"></span> Arcot Cabs. All rights reserved. · Designed for
     premium travel across Karnataka.
   </footer>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+ <!-- Razorpay SDK (MUST be first) -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-  <script>
-    // ===== Loader fade-out =====
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("preloader");
+<script>
+  // ================= PAGE LOAD =================
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("preloader");
+    if (loader) {
       setTimeout(() => {
         loader.style.opacity = "0";
         loader.style.transition = "opacity 450ms ease";
         setTimeout(() => loader.remove(), 460);
-      }, 800); // keep animation visible briefly
-    });
+      }, 800);
+    }
+  });
 
-    // ===== Scroll reveal =====
+  // ================= SCROLL REVEAL =================
+  document.addEventListener("DOMContentLoaded", () => {
     const revealEls = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
       (entries) => {
@@ -1535,119 +1539,115 @@
           }
         });
       },
-      {
-        threshold: 0.15,
-      }
+      { threshold: 0.15 }
     );
     revealEls.forEach((el) => observer.observe(el));
+  });
 
-    // ===== Call & WhatsApp actions =====
-    function callNow() {
-  const options = 
-    "Choose a number to call:\n\n" +
-    "1. 9916242913\n" +
-    "2. 9945822544\n" +
-    "3. 7019876543";
+  // ================= CALL =================
+  function callNow() {
+    const choice = prompt(
+      "Choose a number to call:\n\n1. 9916242913\n2. 9945822544\n3. 7019876543"
+    );
 
-  const choice = prompt(options);
+    let number = "";
+    if (choice == "1") number = "9916242913";
+    else if (choice == "2") number = "9945822544";
+    else if (choice == "3") number = "7019876543";
+    else return;
 
-  let number = "";
-
-  if (choice == "1") number = "9916242913";
-  else if (choice == "2") number = "9945822544";
-  else if (choice == "3") number = "7019876543";
-  else return;
-
-  window.location.href = `tel:+91${number}`;
-}
-
-
-function whatsappNow() {
-  const options = 
-    "Choose a WhatsApp number:\n\n" +
-    "1. 9663380159\n" +
-    "2. 9945822544\n" +
-    "3. 9916242913\n";
-
-  const choice = prompt(options);
-
-  let number = "";
-
-  if (choice == "1") number = "919663380159";
-  else if (choice == "2") number = "919945822544";
-  else if (choice == "3") number = "919916242913";
-  else return;
-
-  const msg = encodeURIComponent(
-    "Hi Arcot Cabs, I’d like to book a cab (Local / Airport / Outstation / ETS)."
-  );
-
-  window.open(`https://wa.me/${number}?text=${msg}`, "_blank");
-}
-
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-    // ================= RAZORPAY PAYMENT =================
-
-const BACKEND_URL = "https://backend-lkym.onrender.com";
-
-document.getElementById("paymentForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
-
-  const name = document.getElementById("payName").value;
-  const phone = document.getElementById("payPhone").value;
-  const amount = document.getElementById("payAmount").value;
-
-  if (!amount || amount <= 0) {
-    alert("Please enter a valid amount");
-    return;
+    window.location.href = `tel:+91${number}`;
   }
 
-  try {
-    // 1️⃣ Create order from backend
-    const res = await fetch(`${BACKEND_URL}/create-order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ amount })
-    });
+  // ================= WHATSAPP =================
+  function whatsappNow() {
+    const choice = prompt(
+      "Choose a WhatsApp number:\n\n1. 9663380159\n2. 9945822544\n3. 9916242913"
+    );
 
-    const order = await res.json();
+    let number = "";
+    if (choice == "1") number = "919663380159";
+    else if (choice == "2") number = "919945822544";
+    else if (choice == "3") number = "919916242913";
+    else return;
 
-    // 2️⃣ Open Razorpay Checkout
-    const options = {
-      key: "rzp_live_S6q2CyTX34QzvG", // 🔴 PUT YOUR RAZORPAY KEY ID HERE
-      amount: order.amount,
-      currency: "INR",
-      name: "Arcot Cabs",
-      description: "Cab Booking Payment",
-      order_id: order.id,
+    const msg = encodeURIComponent(
+      "Hi Arcot Cabs, I’d like to book a cab (Local / Airport / Outstation / ETS)."
+    );
 
-      handler: function (response) {
-        alert("Payment Successful!");
-        console.log("Payment ID:", response.razorpay_payment_id);
-      },
+    window.open(`https://wa.me/${number}?text=${msg}`, "_blank");
+  }
 
-      prefill: {
-        name: name,
-        contact: phone
-      },
+  // ================= FOOTER YEAR =================
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-      theme: {
-        color: "#facc15"
+  // ================= RAZORPAY PAYMENT =================
+  const BACKEND_URL = "https://backend-lkym.onrender.com";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("paymentForm");
+
+    if (!form) {
+      console.error("paymentForm not found");
+      return;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("payName").value;
+      const phone = document.getElementById("payPhone").value;
+      const amount = document.getElementById("payAmount").value;
+
+      if (!amount || amount <= 0) {
+        alert("Please enter a valid amount");
+        return;
       }
-    };
 
-    const rzp = new Razorpay(options);
-    rzp.open();
+      try {
+        // 1️⃣ Create order from backend
+        const res = await fetch(`${BACKEND_URL}/create-order`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount })
+        });
 
-  } catch (err) {
-    console.error(err);
-    alert("Payment failed. Please try again.");
-  }
-});
+        const order = await res.json();
 
-  </script>
+        if (!window.Razorpay) {
+          alert("Razorpay SDK not loaded");
+          return;
+        }
+
+        // 2️⃣ Open Razorpay Checkout
+        const options = {
+          key: "rzp_live_S6q2CyTX34QzvG", // ✅ LIVE KEY ID
+          amount: order.amount,
+          currency: "INR",
+          name: "Arcot Cabs",
+          description: "Cab Booking Payment",
+          order_id: order.id,
+          handler: function () {
+            alert("Payment Successful!");
+          },
+          prefill: {
+            name: name,
+            contact: phone
+          },
+          theme: {
+            color: "#facc15"
+          }
+        };
+
+        new Razorpay(options).open();
+
+      } catch (err) {
+        console.error(err);
+        alert("Payment failed. Please try again.");
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
