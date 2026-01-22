@@ -1,75 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Generate Payment Link – Arcot Cabs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SAME CSS -->
+  <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
+  <main>
+    <section class="reveal">
+      <h2 class="section-title">Generate Payment Link</h2>
+      <p class="section-sub">Enter customer details and share the payment link</p>
 
-<h2>Generate Payment Link</h2>
+      <div class="contact-card" style="max-width:420px;">
+        <form id="linkForm">
+          <div>
+            <label>Customer Name</label>
+            <input id="name" required />
+          </div>
 
-<form id="linkForm">
-  <input id="name" placeholder="Customer Name" required /><br><br>
-  <input id="phone" placeholder="Mobile Number" required /><br><br>
-  <input id="amount" placeholder="Amount (₹)" required /><br><br>
+          <div>
+            <label>Mobile Number</label>
+            <input id="phone" required />
+          </div>
 
-  <button type="submit">Generate Link</button>
-</form>
+          <div>
+            <label>Amount (₹)</label>
+            <input id="amount" required />
+          </div>
 
-<p id="result"></p>
+          <button class="btn btn-primary" type="submit">
+            Generate Link
+          </button>
+        </form>
+
+        <p id="result" style="margin-top:10px;"></p>
+      </div>
+    </section>
+  </main>
 
 <script>
-document.getElementById("linkForm").addEventListener("submit", function(e) {
+document.getElementById("linkForm").addEventListener("submit", e => {
   e.preventDefault();
 
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const amount = document.getElementById("amount").value;
+  const name = nameInput.value;
+  const phone = phoneInput.value;
+  const amount = amountInput.value;
 
-  const link =
-    `https://arcotcabs.netlify.app/pay.html?name=${encodeURIComponent(name)}&phone=${phone}&amount=${amount}`;
+  const link = `https://arcotcabs.netlify.app/pay.html?name=${encodeURIComponent(name)}&phone=${phone}&amount=${amount}`;
 
-  document.getElementById("result").innerHTML =
-    `<b>Payment Link:</b><br><a href="${link}" target="_blank">${link}</a>`;
+  result.innerHTML = `
+    <b>Payment Link:</b><br>
+    <input value="${link}" style="width:100%" onclick="this.select()">
+  `;
 });
 </script>
-
 </body>
 </html>
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Generate Payment Link – Arcot Cabs</title>
-</head>
-<body>
-
-<h2>Generate Payment Link</h2>
-
-<form id="linkForm">
-  <input id="name" placeholder="Customer Name" required /><br><br>
-  <input id="phone" placeholder="Mobile Number" required /><br><br>
-  <input id="amount" placeholder="Amount (₹)" required /><br><br>
-
-  <button type="submit">Generate Link</button>
-</form>
-
-<p id="result"></p>
-
-<script>
-document.getElementById("linkForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const amount = document.getElementById("amount").value;
-
-  const link =
-    `https://arcotcabs.netlify.app/pay.html?name=${encodeURIComponent(name)}&phone=${phone}&amount=${amount}`;
-
-  document.getElementById("result").innerHTML =
-    `<b>Payment Link:</b><br><a href="${link}" target="_blank">${link}</a>`;
-});
-</script>
-
-</body>
-</html>
-
