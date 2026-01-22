@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pay Now – Arcot Cabs</title>
+</head>
+<body>
+
+<h2>Arcot Cabs – Payment</h2>
+<p id="details"></p>
+
+<button onclick="payNow()">Proceed to Pay</button>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const name = params.get("name");
+const phone = params.get("phone");
+const amount = params.get("amount");
+
+document.getElementById("details").innerHTML = `
+  <b>Name:</b> ${name}<br>
+  <b>Phone:</b> ${phone}<br>
+  <b>Amount:</b> ₹${amount}
+`;
+
+async function payNow() {
+  const res = await fetch("https://backend-lkym.onrender.com/create-order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ amount })
+  });
+
+  const order = await res.json();
+
+  const options = {
+    key: "rzp_live_S6q2CyTX34QzvG",
+    amount: order.amount,
+    currency: "INR",
+    name: "Arcot Cabs",
+    description: "Cab Booking Payment",
+    order_id: order.id,
+    prefill: {
+      name: name,
+      contact: phone
+    },
+    handler: function () {
+      alert("Payment Successful");
+    }
+  };
+
+  new Razorpay(options).open();
+}
+</script>
+
+</body>
+</html>
